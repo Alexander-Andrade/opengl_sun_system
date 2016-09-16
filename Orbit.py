@@ -2,6 +2,7 @@ from Trajectory import Trajectory
 from Ellipse import Ellipse
 from Point import Point
 import Animation
+from OrbitPainter import OrbitPainter
 
 class Orbit(Trajectory, Ellipse):
     
@@ -12,6 +13,7 @@ class Orbit(Trajectory, Ellipse):
         Trajectory.__init__(self, shape, timerFreq)
         Ellipse.__init__(self, center, a, b)
         self.shape.set_gravitycenter(self.cur_point)
+        self.painter = OrbitPainter(self)
 
     def calc_next_trajpoint(self):
        self.cur_point = self.parametric(self.t)
