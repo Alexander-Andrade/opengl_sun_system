@@ -1,8 +1,9 @@
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 
 from OpenGL.GLUT import *
-from Shape import Shape
-from Point import Point
+from Shapes.Shape import Shape
+
+from Shapes.Point import Point
 from Timer import Timer
 
 class Trajectory(Shape):

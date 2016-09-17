@@ -1,4 +1,4 @@
-from Painter import *
+from Shapes.Painter import *
 
 
 class BackgroundPainter(Painter):

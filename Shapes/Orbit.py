@@ -1,8 +1,9 @@
-from Trajectory import Trajectory
-from Ellipse import Ellipse
-from Point import Point
 import Animation
-from OrbitPainter import OrbitPainter
+from Shapes.OrbitPainter import OrbitPainter
+from Shapes.Trajectory import Trajectory
+
+from Shapes.Ellipse import Ellipse
+
 
 class Orbit(Trajectory, Ellipse):
     

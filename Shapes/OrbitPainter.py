@@ -1,6 +1,8 @@
-from Painter import *
-import Animation
 import math
+
+import Animation
+
+from Shapes.Painter import *
 
 
 class OrbitPainter(Painter):
@@ -20,5 +22,5 @@ class OrbitPainter(Painter):
             y_coord = self.orbit.center.y + self.orbit.b * math.sin(i * dt)
             glVertex3d(x_coord, y_coord, 0.0)
         glEnd()
-        self.orbit.shape.draw()
         glPopMatrix()
+        self.orbit.shape.draw()

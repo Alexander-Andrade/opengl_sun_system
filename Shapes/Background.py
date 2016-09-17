@@ -1,5 +1,6 @@
-from Shape import Shape
-from BackgroundPainter import BackgroundPainter
+from Shapes.Shape import Shape
+
+from Shapes.BackgroundPainter import BackgroundPainter
 from Texture import Texture
 
 

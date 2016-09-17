@@ -1,5 +1,7 @@
-from Shape import Shape
-from CirclePainter import CirclePainter
+from Shapes.CirclePainter import CirclePainter
+
+from Shapes.Shape import Shape
+
 
 class Circle(Shape):
    

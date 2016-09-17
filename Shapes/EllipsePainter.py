@@ -1,6 +1,9 @@
-from Painter import *
-import Animation
 import math
+
+import Animation
+
+from Shapes.Painter import *
+
 
 class EllipsePainter(Painter):
     

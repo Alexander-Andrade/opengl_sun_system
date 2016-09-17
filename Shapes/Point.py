@@ -1,5 +1,7 @@
-from Shape import Shape
-from PointPainter import PointPainter
+from Shapes.Shape import Shape
+
+from Shapes.PointPainter import PointPainter
+
 
 class Point(Shape):
     

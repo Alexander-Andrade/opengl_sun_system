@@ -1,7 +1,10 @@
-from Shape import Shape
-from Point import Point
 import math
-from EllipsePainter import EllipsePainter
+
+from Shapes.Point import Point
+from Shapes.Shape import Shape
+
+from Shapes.EllipsePainter import EllipsePainter
+
 
 class Ellipse(Shape):
     

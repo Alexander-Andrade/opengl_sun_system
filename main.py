@@ -1,20 +1,12 @@
-from OpenGL.GL import * 
-from OpenGL.GLU import * 
-from OpenGL.GLUT import * 
-import sys
-from Point import Point
-from Circle import Circle
-from Timer import Timer
-from Trajectory import Trajectory
-from Ellipse import Ellipse
-from EllipsePainter import RotatedEllipsePainter
-from Orbit import Orbit
-from Texture import Texture
-from Background import Background
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+
+from Shapes import *
+
 
 class Window:
 
-    def __init__(self, application,**kwargs):
+    def __init__(self, application, **kwargs):
         self.application = application
         self.__init_window(**kwargs)
         self.__register_app_event_handlers()
@@ -45,8 +37,8 @@ class Application:
 
     def create_shapes(self):
         self.figures.append(Background('images/space1.jpg'))
-        point = Point(0.2, 0.7)
-        orbit = Orbit(point, 50, Point(0.5, 0.5), 0.4, 0.1)
+        planet = Globe(Point(0.2, 0.7), 0.12, 'images/glize.jpg')
+        orbit = Orbit(planet, 50, Point(0.5, 0.5), 0.4, 0.1)
         orbit.start_moving_shape()
         self.figures.append(orbit)
         self.figures.append(Ellipse(Point(0.1, 0.43), 0.1, 0.23))
