@@ -28,7 +28,6 @@ class Window:
         glutInitWindowSize(self.init_wind_size[0], self.init_wind_size[1])
         glutInitWindowPosition(self.init_window_pos[0], self.init_window_pos[1])
         glutCreateWindow(self.title)
-        glEnable(GL_TEXTURE_2D)
         glEnable(GL_DEPTH_TEST)
 
         
@@ -60,6 +59,31 @@ class Application:
         glColor3f(0.0, 0.3, 0.0)
         for figure in self.figures:
             figure.draw()
+
+        glEnable(GL_TEXTURE_2D)
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
+        self.texture.bindTexture()
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.0, 0.0);
+        glVertex3f(-2.0, -1.0, 0.0);
+        glTexCoord2f(0.0, 1.0);
+        glVertex3f(-2.0, 1.0, 0.0);
+        glTexCoord2f(1.0, 1.0);
+        glVertex3f(0.0, 1.0, 0.0);
+        glTexCoord2f(1.0, 0.0);
+        glVertex3f(0.0, -1.0, 0.0);
+        glTexCoord2f(0.0, 0.0);
+        glVertex3f(1.0, -1.0, 0.0);
+        glTexCoord2f(0.0, 1.0);
+        glVertex3f(1.0, 1.0, 0.0);
+        glTexCoord2f(1.0, 1.0);
+        glVertex3f(2.41421, 1.0, -1.41421);
+        glTexCoord2f(1.0, 0.0);
+        glVertex3f(2.41421, -1.0, -1.41421);
+        glEnd();
+        glFlush();
+        glDisable(GL_TEXTURE_2D);
+
         glutSwapBuffers()
 
 
@@ -67,6 +91,6 @@ if __name__ == "__main__":
     glutInit(sys.argv)
     app = Application()
     window = Window(app)
-    texture = Texture('images/space1.jpg')
+    app.texture = Texture('images/space1.jpg')
     window.mainLoop()
 
