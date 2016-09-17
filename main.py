@@ -9,6 +9,7 @@ from Trajectory import Trajectory
 from Ellipse import Ellipse
 from EllipsePainter import RotatedEllipsePainter
 from Orbit import Orbit
+from Texture import Texture
 
 class Window:
 
@@ -17,15 +18,19 @@ class Window:
         self.__init_window(**kwargs)
         self.__register_app_event_handlers()
 
-    def __init_window(self, **kwargs):
-        self.init_window_pos = kwargs.get('init_window_pos', (100, 100))
-        self.title = kwargs.get('title', 'window')
-        self.init_wind_size = kwargs.get('init_wind_size', (600, 600))
-        self.display_mode = kwargs.get('display_mode', GLUT_DOUBLE | GLUT_RGB)
+    def __init_window(self, init_window_pos=(100, 100), title='window', init_wind_size=(600, 600),
+                      display_mode=GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH):
+        self.init_window_pos = init_window_pos
+        self.title = title
+        self.init_wind_size = init_wind_size
+        self.display_mode = display_mode
         glutInitDisplayMode(self.display_mode)
         glutInitWindowSize(self.init_wind_size[0], self.init_wind_size[1])
         glutInitWindowPosition(self.init_window_pos[0], self.init_window_pos[1])
         glutCreateWindow(self.title)
+        glEnable(GL_TEXTURE_2D)
+        glEnable(GL_DEPTH_TEST)
+
         
 
     def __register_app_event_handlers(self):
@@ -40,15 +45,18 @@ class Application:
         self.figures = []
         #self.figures.append(Point(0.2, 0.12, 0.34))
         #self.figures.append(Circle(Point(0.12, 0.342, 0.34), 0.4))
-        #self.figures.append(Ellipce(Point(0.1, 0.43),0.1, 0.23))
+        #self.figures.append(Ellipse(Point(0.1, 0.43),0.1, 0.23))
 
         point = Point(0.2, 0.7)
         orbit = Orbit(point, 50, Point(0.5, 0.5), 0.4, 0.1)
         orbit.start_moving_shape()
         self.figures.append(orbit)
+        self.figures.append(Ellipse(Point(0.1, 0.43),0.1, 0.23))
 
     def display(self):
-        glClear(GL_COLOR_BUFFER_BIT)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
         glColor3f(0.0, 0.3, 0.0)
         for figure in self.figures:
             figure.draw()
@@ -59,5 +67,6 @@ if __name__ == "__main__":
     glutInit(sys.argv)
     app = Application()
     window = Window(app)
-     
+    texture = Texture('images/space1.jpg')
     window.mainLoop()
+
