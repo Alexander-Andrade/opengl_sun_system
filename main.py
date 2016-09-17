@@ -10,6 +10,7 @@ from Ellipse import Ellipse
 from EllipsePainter import RotatedEllipsePainter
 from Orbit import Orbit
 from Texture import Texture
+from Background import Background
 
 class Window:
 
@@ -28,7 +29,6 @@ class Window:
         glutInitWindowSize(self.init_wind_size[0], self.init_wind_size[1])
         glutInitWindowPosition(self.init_window_pos[0], self.init_window_pos[1])
         glutCreateWindow(self.title)
-        glEnable(GL_DEPTH_TEST)
 
         
 
@@ -42,37 +42,22 @@ class Application:
 
     def __init__(self):
         self.figures = []
-        #self.figures.append(Point(0.2, 0.12, 0.34))
-        #self.figures.append(Circle(Point(0.12, 0.342, 0.34), 0.4))
-        #self.figures.append(Ellipse(Point(0.1, 0.43),0.1, 0.23))
 
+    def create_shapes(self):
+        self.figures.append(Background('images/space1.jpg'))
         point = Point(0.2, 0.7)
         orbit = Orbit(point, 50, Point(0.5, 0.5), 0.4, 0.1)
         orbit.start_moving_shape()
         self.figures.append(orbit)
-        self.figures.append(Ellipse(Point(0.1, 0.43),0.1, 0.23))
+        self.figures.append(Ellipse(Point(0.1, 0.43), 0.1, 0.23))
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-        glColor3f(0.0, 0.0, 0.0)
-        glEnable(GL_TEXTURE_2D)
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
-        self.texture.bindTexture()
-        glBegin(GL_QUADS)
-        glTexCoord2f(0.0, 0.0)
-        glVertex2f(-1.0, -1.0)
-        glTexCoord2f(0.0, 1.0)
-        glVertex2f(1.0, -1.0)
-        glTexCoord2f(1.0, 1.0)
-        glVertex2f(1.0, 1.0)
-        glTexCoord2f(1.0, 0.0)
-        glVertex2f(-1.0, 1.0)
-        glEnd()
-        glColor3f(0.65, 0.23, 0.87)
-        glDisable(GL_TEXTURE_2D);
+        glColor3f(0.0, 0.8, 0.0)
+
         for figure in self.figures:
             figure.draw()
         glFlush()
@@ -83,6 +68,6 @@ if __name__ == "__main__":
     glutInit(sys.argv)
     app = Application()
     window = Window(app)
-    app.texture = Texture('images/space1.jpg')
+    app.create_shapes()
     window.mainLoop()
 
