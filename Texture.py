@@ -10,6 +10,7 @@ class Texture:
         self.type = type
         self.image = Image.open(image_name)
         # self.image.show()
+        # self.image.show()
         self.img_data = np.array(list(self.image.getdata()), np.uint8)
         print(self.img_data.shape)
         # self.img_data = np.transpose(self.img_data, (1, 0, 2))

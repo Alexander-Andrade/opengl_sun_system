@@ -56,34 +56,26 @@ class Application:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        glColor3f(0.0, 0.3, 0.0)
-        for figure in self.figures:
-            figure.draw()
 
+        glColor3f(0.0, 0.0, 0.0)
         glEnable(GL_TEXTURE_2D)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
         self.texture.bindTexture()
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.0, 0.0);
-        glVertex3f(-2.0, -1.0, 0.0);
-        glTexCoord2f(0.0, 1.0);
-        glVertex3f(-2.0, 1.0, 0.0);
-        glTexCoord2f(1.0, 1.0);
-        glVertex3f(0.0, 1.0, 0.0);
-        glTexCoord2f(1.0, 0.0);
-        glVertex3f(0.0, -1.0, 0.0);
-        glTexCoord2f(0.0, 0.0);
-        glVertex3f(1.0, -1.0, 0.0);
-        glTexCoord2f(0.0, 1.0);
-        glVertex3f(1.0, 1.0, 0.0);
-        glTexCoord2f(1.0, 1.0);
-        glVertex3f(2.41421, 1.0, -1.41421);
-        glTexCoord2f(1.0, 0.0);
-        glVertex3f(2.41421, -1.0, -1.41421);
-        glEnd();
-        glFlush();
+        glBegin(GL_QUADS)
+        glTexCoord2f(0.0, 0.0)
+        glVertex2f(-1.0, -1.0)
+        glTexCoord2f(0.0, 1.0)
+        glVertex2f(1.0, -1.0)
+        glTexCoord2f(1.0, 1.0)
+        glVertex2f(1.0, 1.0)
+        glTexCoord2f(1.0, 0.0)
+        glVertex2f(-1.0, 1.0)
+        glEnd()
+        glColor3f(0.65, 0.23, 0.87)
         glDisable(GL_TEXTURE_2D);
-
+        for figure in self.figures:
+            figure.draw()
+        glFlush()
         glutSwapBuffers()
 
 

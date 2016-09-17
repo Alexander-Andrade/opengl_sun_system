@@ -4,4 +4,3 @@ PyOpenGL_accelerate
 valideer
 Pillow
 numpy
-# pysoil
