@@ -23,20 +23,18 @@ class EllipsePainter(Painter):
 
 
 class RotatedEllipsePainter(Painter):
-    def __init__(self, ellipse, n=50):
+    def __init__(self, ellipse, n=50, angle=0):
         self.ellipse = ellipse
+        self.a_angle = math.radians(angle)
         self.n = n
 
     def draw(self):
         dt = Animation.sampling(self.n)
-        glPushMatrix()
-        glRotatef(240, 1.0, 1.0, 0.0)
-        glTranslatef(0.3, 0.4, 0.0)
         glBegin(GL_LINE_LOOP)
         glVertex3d(self.ellipse.center.x, self.ellipse.center.y, 0.0)
         for i in range(self.n + 1):
-            x_coord = self.ellipse.center.x + self.ellipse.a * math.cos(i * dt)
-            y_coord = self.ellipse.center.y + self.ellipse.b * math.sin(i * dt)
+            b_angle = i * dt
+            x_coord = self.ellipse.center.x + self.ellipse.a * math.cos(b_angle) * math.cos(self.a_angle) - self.ellipse.b * math.sin(b_angle) * math.sin(self.a_angle)
+            y_coord = self.ellipse.center.y + self.ellipse.b * math.sin(b_angle) * math.cos(self.a_angle) + self.ellipse.a * math.cos(b_angle) * math.sin(self.a_angle)
             glVertex3d(x_coord, y_coord, 0.0)
         glEnd()
-        glPopMatrix()

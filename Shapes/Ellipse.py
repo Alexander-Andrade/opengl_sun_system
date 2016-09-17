@@ -21,3 +21,8 @@ class Ellipse(Shape):
         self.center = grav_center
 
 
+# class MatEllipse(Shape):
+#
+#     def __init__(self, center=Point(), a=0.0, b=0.0, angle=0, n=50):
+#         pass
+

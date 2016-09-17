@@ -19,7 +19,7 @@ class GlobePainter(Painter):
         glBegin(GL_POLYGON)
         glVertex3d(self.globe.center.x, self.globe.center.y, 0.0)
 
-        for angle in range(0, 360, 2):
+        for angle in range(0, 362, 2):
             radian = angle * (math.pi / 180.0)
 
             xcos = math.cos(radian)
@@ -32,23 +32,6 @@ class GlobePainter(Painter):
             glTexCoord2f(tx, ty)
             glVertex2f(x, y)
 
-
-        # for i in range(self.n + 1):
-        #     x_coord = self.globe.center.x + self.globe.r * math.cos(i * dt)
-        #     y_coord = self.globe.center.y + self.globe.r * math.sin(i * dt)
-        #     glVertex3d(x_coord, y_coord, 0.0)
-        #     glTexCoord2f(x_coord, y_coord, 0.0)
-        #     radian = angle * (math.pi / 180.0)
-        #     xcos = math.cos(radian)
-        #     ysin = (float)
-        #     sin(radian);
-        #     x = xcos * c.r + c.pos.x;
-        #     y = ysin * c.r + c.pos.y;
-        #     tx = xcos * 0.5 + 0.5;
-        #     ty = ysin * 0.5 + 0.5;
-        #
-        #     glTexCoord2f(tx, ty);
-        #     glVertex2f(x, y);
         glEnd()
         glDisable(GL_TEXTURE_2D)
 

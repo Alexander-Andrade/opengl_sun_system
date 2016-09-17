@@ -9,7 +9,7 @@ class Shape(metaclass=ABCMeta):
     def draw(self):
         self.painter.draw()
 
-    def setPainter(self, painter):
+    def set_painter(self, painter):
         self.painter = painter
     
     @abstractmethod

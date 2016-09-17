@@ -22,5 +22,5 @@ class OrbitPainter(Painter):
             y_coord = self.orbit.center.y + self.orbit.b * math.sin(i * dt)
             glVertex3d(x_coord, y_coord, 0.0)
         glEnd()
-        glPopMatrix()
         self.orbit.shape.draw()
+        glPopMatrix()
