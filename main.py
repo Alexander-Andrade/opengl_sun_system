@@ -37,12 +37,11 @@ class Application:
 
     def create_shapes(self):
         self.figures.append(Background('images/space1.jpg'))
-        ellipse = Ellipse(Point(0.23, 0.43), 0.20, 0.14)
-        ellipse.set_painter(RotatedEllipsePainter(ellipse, 50, 30))
+        ellipse = Ellipse(Point(0.0, 0.0), 0.20, 0.14, 60, Point(0.1, 0))
         self.figures.append(ellipse)
-        ellipse1 = Ellipse(Point(0.23, 0.43), 0.20, 0.14)
-        ellipse1.set_painter(RotatedEllipsePainter(ellipse1, 50, 0))
+        ellipse1 = Ellipse(Point(0.0, 0.0), 0.20, 0.14, 60, Point(0.0, 0))
         self.figures.append(ellipse1)
+        self.figures.append(Point(0.1, 0))
         # planet = Globe(Point(0.2, 0.7), 0.12, 'images/glize.jpg')
         # orbit = Orbit(planet, 50, Point(0.5, 0.5), 0.4, 0.1)
         # orbit.start_moving_shape()
@@ -61,6 +60,7 @@ class Application:
         glFlush()
         glutSwapBuffers()
 
+import numpy as np
 
 if __name__ == "__main__":
     glutInit(sys.argv)
@@ -68,3 +68,4 @@ if __name__ == "__main__":
     window = Window(app)
     app.create_shapes()
     window.mainLoop()
+

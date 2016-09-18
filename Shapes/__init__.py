@@ -8,7 +8,6 @@ from Shapes.CirclePainter import CirclePainter
 
 from Shapes.Ellipse import Ellipse
 from Shapes.EllipsePainter import EllipsePainter
-from Shapes.EllipsePainter import RotatedEllipsePainter
 
 from Shapes.Globe import Globe
 from Shapes.GlobePainter import GlobePainter

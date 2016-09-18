@@ -23,8 +23,8 @@ class Point(Shape):
     def __truediv__(self, point):
         return Point(self.x / point.x, self.y / point.y, self.z / point.z)
 
-    def as_typle(self):
-        return (self.x, self.y, self.z)
+    def as_tuple(self):
+        return self.x, self.y, self.z
 
     def set_gravitycenter(self, point):
         self.x, self.y, self.z = point.as_typle()
