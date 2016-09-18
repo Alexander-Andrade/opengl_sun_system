@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-
 class Shape(metaclass=ABCMeta):
 
     def __init__(self):
@@ -11,8 +10,10 @@ class Shape(metaclass=ABCMeta):
 
     def set_painter(self, painter):
         self.painter = painter
-    
+
     @abstractmethod
     def set_gravitycenter(self, grav_center):
         pass
+
+
 

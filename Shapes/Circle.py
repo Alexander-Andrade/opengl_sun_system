@@ -1,7 +1,7 @@
 from Shapes.CirclePainter import CirclePainter
 
 from Shapes.Shape import Shape
-
+from Shapes.Point import Point
 
 class Circle(Shape):
    

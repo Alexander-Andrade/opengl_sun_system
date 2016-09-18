@@ -11,4 +11,4 @@ class PointPainter(Painter):
         glPointSize(6.0)
         glBegin(GL_POINTS)
         glVertex3f(self.point.x, self.point.y, self.point.z)
-        glEnd();
+        glEnd()

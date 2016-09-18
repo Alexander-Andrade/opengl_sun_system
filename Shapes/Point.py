@@ -5,11 +5,12 @@ from Shapes.PointPainter import PointPainter
 
 class Point(Shape):
     
-    def __init__(self, x=0.0, y=0.0, z=0.0):
+    def __init__(self, x=0.0, y=0.0, z=0.0, has_painter=False):
         self.x = x
         self.y = y
         self.z = z
-        self.painter = PointPainter(self)
+        if has_painter:
+            self.painter = PointPainter(self)
 
     def __add__(self, point):
         return Point(self.x + point.x, self.y + point.y, self.z + point.z)
@@ -25,6 +26,10 @@ class Point(Shape):
 
     def as_tuple(self):
         return self.x, self.y, self.z
+
+    @staticmethod
+    def from_tuple(t):
+        return Point(t[0], t[1], t[2])
 
     def set_gravitycenter(self, point):
         self.x, self.y, self.z = point.as_typle()

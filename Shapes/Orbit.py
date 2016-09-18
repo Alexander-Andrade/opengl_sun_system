@@ -1,22 +1,23 @@
 import Animation
 from Shapes.OrbitPainter import OrbitPainter
 from Shapes.Trajectory import Trajectory
-
+from Shapes.Point import Point
 from Shapes.Ellipse import Ellipse
 
 
 class Orbit(Trajectory, Ellipse):
     
-    def __init__(self, shape, timerFreq, center, a, b, n=50):
-        self.t = 0
+    def __init__(self, globe, satellite, timer_freq, a, b, angle=0.0, n=100):
         self.n = n
-        self.dt = Animation.sampling(self.n)
-        Trajectory.__init__(self, shape, timerFreq)
-        Ellipse.__init__(self, center, a, b)
-        self.shape.set_gravitycenter(self.cur_point)
+        Trajectory.__init__(self, satellite, timer_freq)
+        Ellipse.__init__(self, Ellipse.find_center_from_focus(globe.center, a, b), a, b, angle, globe.center, False)
+        self.points = self.get_samples(self.n)
+        self.i = 0
         self.painter = OrbitPainter(self)
 
-    def calc_next_trajpoint(self):
-       self.cur_point = self.parametric(self.t)
-       self.t += self.dt
+    def next_trajpoint(self):
+        if self.i == self.n:
+            self.i = 0
+        self.cur_point = Point.from_tuple(self.points[self.i])
+        self.i += 1
 

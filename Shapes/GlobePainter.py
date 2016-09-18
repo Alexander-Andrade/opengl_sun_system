@@ -15,7 +15,7 @@ class GlobePainter(Painter):
         dt = Animation.sampling(self.n)
         glEnable(GL_TEXTURE_2D)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
-        self.globe.texture.bindTexture()
+        self.globe.texture.bind_texture()
         glBegin(GL_POLYGON)
         glVertex3d(self.globe.center.x, self.globe.center.y, 0.0)
 

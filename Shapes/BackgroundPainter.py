@@ -9,7 +9,7 @@ class BackgroundPainter(Painter):
     def draw(self):
         glEnable(GL_TEXTURE_2D)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
-        self.background.texture.bindTexture()
+        self.background.texture.bind_texture()
         glBegin(GL_QUADS)
         glTexCoord2f(0.0, 0.0)
         glVertex2f(-1.0, -1.0)

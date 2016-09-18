@@ -37,16 +37,29 @@ class Application:
 
     def create_shapes(self):
         self.figures.append(Background('images/space1.jpg'))
-        ellipse = Ellipse(Point(0.0, 0.0), 0.20, 0.14, 60, Point(0.1, 0))
-        self.figures.append(ellipse)
-        ellipse1 = Ellipse(Point(0.0, 0.0), 0.20, 0.14, 60, Point(0.0, 0))
-        self.figures.append(ellipse1)
-        self.figures.append(Point(0.1, 0))
-        # planet = Globe(Point(0.2, 0.7), 0.12, 'images/glize.jpg')
-        # orbit = Orbit(planet, 50, Point(0.5, 0.5), 0.4, 0.1)
-        # orbit.start_moving_shape()
-        # self.figures.append(orbit)
-        # self.figures.append(Ellipse(Point(0.1, 0.43), 0.1, 0.23))
+
+        sun = Globe(Point(0.0, 0.0), 0.12, 'images/sun.jpg')
+        glize = Globe(Point(), 0.06, 'images/glize.jpg')
+        mars = Globe(Point(), 0.034, 'images/mars.jpg')
+        venus = Globe(Point(), 0.063, 'images/venus.jpg')
+        calisto = Globe(Point(), 0.087, 'images/calisto.jpg')
+
+        glize_orbit = Orbit(sun, glize, 50, 0.45, 0.38, 30)
+        mars_orbit = Orbit(sun, mars, 47, 0.9, 0.6, 60)
+        venus_orbit = Orbit(sun, venus, 38, 0.7, 0.6, 78)
+        calisto_orbit = Orbit(sun, calisto, 25, 0.67, 0.53, 32)
+
+        glize_orbit.start_moving_shape()
+        mars_orbit.start_moving_shape()
+        venus_orbit.start_moving_shape()
+        calisto_orbit.start_moving_shape()
+
+        self.figures.append(sun)
+        self.figures.append(glize_orbit)
+        self.figures.append(mars_orbit)
+        self.figures.append(venus_orbit)
+        self.figures.append(calisto_orbit)
+
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -60,7 +73,6 @@ class Application:
         glFlush()
         glutSwapBuffers()
 
-import numpy as np
 
 if __name__ == "__main__":
     glutInit(sys.argv)

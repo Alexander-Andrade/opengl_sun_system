@@ -4,18 +4,13 @@ from OpenGL.GLUT import *
 from PIL import Image
 import numpy as np
 
+
 class Texture:
 
     def __init__(self, image_name, type=GL_TEXTURE_2D):
         self.type = type
         self.image = Image.open(image_name)
-        # self.image.show()
-        # self.image.show()
         self.img_data = np.array(list(self.image.getdata()), np.uint8)
-        print(self.img_data.shape)
-        # self.img_data = np.transpose(self.img_data, (1, 0, 2))
-        # self.img_data2 = np.asarray(Image.open(image_name).transpose(Image.FLIP_TOP_BOTTOM), dtype=np.uint8)
-        #print(self.img_data2.shape)
         glEnable(GL_TEXTURE_2D)
         self.texture = glGenTextures(1)
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
@@ -27,7 +22,7 @@ class Texture:
         # glTexImage2D(type, 0, GL_RGB, self.width(), self.height(), 0, GL_RGB, GL_UNSIGNED_BYTE, self.img_data)
         gluBuild2DMipmaps(type, GL_RGB, self.width(), self.height(), GL_RGB, GL_UNSIGNED_BYTE, self.img_data)
 
-    def bindTexture(self):
+    def bind_texture(self):
         glBindTexture(self.type, self.texture)
 
     def width(self):
