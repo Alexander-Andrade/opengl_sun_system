@@ -14,9 +14,10 @@ class GlobePainter(Painter):
     def draw(self):
         dt = Animation.sampling(self.n)
         glEnable(GL_TEXTURE_2D)
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
         self.globe.texture.bind_texture()
         glBegin(GL_POLYGON)
+        glNormal3f(0.0, 0.0, 1.0)
         glVertex3d(self.globe.center.x, self.globe.center.y, 0.0)
 
         for angle in range(0, 362, 2):
