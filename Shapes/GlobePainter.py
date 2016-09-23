@@ -38,25 +38,28 @@ class GlobePainter(Painter):
 
 class ShiningGlobePainter(Painter):
 
-    def __init__(self, globe, n=50):
+    def __init__(self, globe, n=50, light=GL_LIGHT0):
         self.globe = globe
         self.n = n
+        self.light = light
 
-    def point_light(self, light_num, position):
-        glEnable(light_num)
-        glLightfv(light_num, GL_DIFFUSE, (0.4, 0.7, 0.2))
-        glLightfv(light_num, GL_POSITION, position)
-        glLightf(light_num, GL_CONSTANT_ATTENUATION, 0.0)
-        glLightf(light_num, GL_LINEAR_ATTENUATION, 0.2)
-        glLightf(light_num, GL_QUADRATIC_ATTENUATION, 0.4)
+    def point_light(self):
+        glEnable(self.light)
+        glLightfv(self.light, GL_DIFFUSE, (0.6, 0.2, 0.7))
+        pos = self.globe.center.as_tuple()
+        glLightfv(self.light, GL_POSITION, (pos[0], pos[1], 0.1, 1.0))
+        glLightf(self.light, GL_CONSTANT_ATTENUATION, 0.0)
+        glLightf(self.light, GL_LINEAR_ATTENUATION, 0.2)
+        glLightf(self.light, GL_QUADRATIC_ATTENUATION, 0.2)
 
     def draw(self):
         glEnable(GL_LIGHT2)
-        glLightfv(GL_LIGHT2, GL_DIFFUSE, (0.6, 0.2, 0.7))
-        glLightfv(GL_LIGHT2, GL_POSITION, (0.0, 0.0, 0.1, 1.0))
-        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.0)
-        glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.2)
-        glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2)
+        self.point_light()
+        # glLightfv(GL_LIGHT2, GL_DIFFUSE, (0.6, 0.2, 0.7))
+        # glLightfv(GL_LIGHT2, GL_POSITION, (0.0, 0.0, 0.1, 1.0))
+        # glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.0)
+        # glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.2)
+        # glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2)
 
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, (1.0, 1.0, 1.0, 1.0))
         dt = Animation.sampling(self.n)
@@ -80,7 +83,6 @@ class ShiningGlobePainter(Painter):
             glTexCoord2f(tx, ty)
             glVertex2f(x, y)
         glEnd()
-        #glDisable(GL_LIGHT2)
         glDisable(GL_TEXTURE_2D)
 
 
