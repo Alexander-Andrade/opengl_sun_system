@@ -21,8 +21,13 @@ class Window:
         glutInitWindowSize(self.init_wind_size[0], self.init_wind_size[1])
         glutInitWindowPosition(self.init_window_pos[0], self.init_window_pos[1])
         glutCreateWindow(self.title)
+        self.__enable_lightning()
 
-        
+    def __enable_lightning(self):
+        glEnable(GL_LIGHTING)
+        # glEnable(GL_COLOR_MATERIAL)
+        glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE)
+        glEnable(GL_NORMALIZE)
 
     def __register_app_event_handlers(self):
         glutDisplayFunc(self.application.display)
@@ -39,6 +44,7 @@ class Application:
         self.figures.append(Background('images/space1.jpg'))
 
         sun = Globe(Point(0.0, 0.0), 0.12, 'images/sun.jpg')
+        sun.set_painter(ShiningGlobePainter(sun))
         glize = Globe(Point(), 0.06, 'images/glize.jpg')
         mars = Globe(Point(), 0.034, 'images/mars.jpg')
         venus = Globe(Point(), 0.063, 'images/venus.jpg')
