@@ -46,6 +46,7 @@ class ShiningGlobePainter(Painter):
     def point_light(self):
         glEnable(self.light)
         glLightfv(self.light, GL_DIFFUSE, (0.6, 0.2, 0.7))
+        glLightfv(self.light, GL_SPECULAR, (0.7, 0.2, 0.2))
         pos = self.globe.center.as_tuple()
         glLightfv(self.light, GL_POSITION, (pos[0], pos[1], 0.1, 1.0))
         glLightf(self.light, GL_CONSTANT_ATTENUATION, 0.0)
@@ -53,13 +54,8 @@ class ShiningGlobePainter(Painter):
         glLightf(self.light, GL_QUADRATIC_ATTENUATION, 0.2)
 
     def draw(self):
-        glEnable(GL_LIGHT2)
+        glEnable(self.light)
         self.point_light()
-        # glLightfv(GL_LIGHT2, GL_DIFFUSE, (0.6, 0.2, 0.7))
-        # glLightfv(GL_LIGHT2, GL_POSITION, (0.0, 0.0, 0.1, 1.0))
-        # glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0.0)
-        # glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.2)
-        # glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.2)
 
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, (1.0, 1.0, 1.0, 1.0))
         dt = Animation.sampling(self.n)
