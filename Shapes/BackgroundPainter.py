@@ -8,7 +8,7 @@ class BackgroundPainter(Painter):
 
     def draw(self):
         glEnable(GL_TEXTURE_2D)
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD)
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
         self.background.texture.bind_texture()
         glBegin(GL_QUADS)
         glNormal3f(0.0, 0.0, 1.0)

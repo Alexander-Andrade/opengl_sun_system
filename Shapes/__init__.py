@@ -11,6 +11,7 @@ from Shapes.EllipsePainter import EllipsePainter
 
 from Shapes.Globe import Globe
 from Shapes.GlobePainter import GlobePainter
+from Shapes.GlobePainter import ShiningGlobePainter
 
 from Shapes.Star import Star
 from Shapes.StarPainter import StarPainter

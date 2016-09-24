@@ -8,9 +8,6 @@ class TriangleFragment(Shape):
 
     def __init__(self, image_name, grav_center=Point(), side_size=1, life_epochs=0,
                  acceleration=(0.0, 0.0, 0.0), attenuation=0, speed=(0.0, 0.0, 0.0)):
-        self.p1 = Point()
-        self.p2 = Point()
-        self.p3 = Point()
         self.side_size = side_size
         self.texture = Texture(image_name)
         self.painter = TriangleFragmentPainter(self)
@@ -22,7 +19,7 @@ class TriangleFragment(Shape):
     def set_points(self, grav_center, side_size):
         self.p1 = grav_center
         self.p2 = Point(grav_center.x + side_size, grav_center.y)
-        self.p3 =
+        self.p3 = Point()
 
     def set_gravitycenter(self, grav_center):
         self.p1 = grav_center
@@ -38,6 +35,7 @@ class TriangleFragment(Shape):
     def recalc_grav_center_pos(self):
         center = self.gravitycenter()
         for i in range(center):
+            pass
 
 
     def update_position(self):

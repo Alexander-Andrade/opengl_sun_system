@@ -16,8 +16,12 @@ class Triangle(Shape):
         self.p2 = self.p2 + diff
         self.p3 = self.p3 + diff
 
-    def gravitycenter(self):
-        return Point((self.p1.x + self.p2.x + self.p3.x) / 3, (self.p1.y + self.p2.y + self.p3.y) / 3)
-
     def __repr__(self):
         return "Triangle(p1:{}, p2:{}, p3:{})".format(self.p1, self.p2, self.p3)
+
+    def gravity_center(self):
+        x_coord = (self.p1.x + self.p2.x + self.p3.x)/3
+        y_coord = (self.p1.y + self.p2.y + self.p3.y)/3
+        z_coord = (self.p1.z + self.p2.z + self.p3.z)/3
+        return Point(x_coord, y_coord, z_coord)
+
