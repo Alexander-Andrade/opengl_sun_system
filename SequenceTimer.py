@@ -29,5 +29,9 @@ class SequenceTimer:
             self.i += 1
         self.__call_timer()
 
-    def stop(self):
-        pass
+    def push_event(self, time_event):
+        self.time_events.append(time_event)
+        if self.i == len(self.time_events-1):
+            self.__call_timer()
+
+

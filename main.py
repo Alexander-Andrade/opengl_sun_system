@@ -64,18 +64,18 @@ class Application:
         calisto = Globe(Point(), 0.087, 'images/calisto.jpg')
 
         glize_orbit = Orbit(sun, glize, 50, 0.45, 0.43, 30)
-        #mars_orbit = Orbit(sun, mars, 47, 0.9, 0.6, 60)
+        mars_orbit = Orbit(sun, mars, 47, 0.9, 0.6, 60)
         venus_orbit = Orbit(sun, venus, 38, 0.7, 0.6, 78)
         calisto_orbit = Orbit(sun, calisto, 40, 0.56, 0.57, 32)
 
         glize_orbit.start_moving_shape()
-        #mars_orbit.start_moving_shape()
+        mars_orbit.start_moving_shape()
         venus_orbit.start_moving_shape()
         calisto_orbit.start_moving_shape()
 
         self.figures.append(sun)
         self.figures.append(glize_orbit)
-        #self.figures.append(mars_orbit)
+        self.figures.append(mars_orbit)
         self.figures.append(venus_orbit)
         self.figures.append(calisto_orbit)
 

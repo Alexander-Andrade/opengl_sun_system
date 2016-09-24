@@ -18,8 +18,8 @@ class Orbit(Trajectory, Ellipse):
 
     def next_trajpoint(self):
         #center = Ellipse.find_center_from_focus(self.globe.center, self.a, self.b)
-        p = Animation.rotate_around(self.globe.center, Ellipse.find_center_from_focus(self.globe.center, self.a, self.b), self.angle)
-        self.set_gravitycenter(p)
+        #p = Animation.rotate_around(self.globe.center, Ellipse.find_center_from_focus(self.globe.center, self.a, self.b), self.angle)
+        #self.set_gravitycenter(self.globe.center)
 
         self.cur_point = self.parametric(self.t)
         self.t += self.dt
