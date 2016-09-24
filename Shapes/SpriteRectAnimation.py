@@ -23,6 +23,7 @@ class SpriteRectAnimation(Shape):
         return self.rect.gravity_center()
 
     def animate(self):
+        self.sprite.to_next_sprite()
         glutPostRedisplay()
 
     def start(self):

@@ -16,22 +16,15 @@ class Sprite:
 
     def get_rect(self, row, col):
         if (row < self.n_rows) and (col < self.n_cols):
-            return Rect(Point(row*self.height, col*self.width), self.width, self.height)
+            return Rect(Point(col*self.width, 1-row*self.height), self.width, self.height)
 
-    def __to_next_sprite(self):
-        if self.cur_col < self.n_cols:
+    def to_next_sprite(self):
+        if self.cur_col < self.n_cols-1:
             self.cur_col += 1
         else:
             self.cur_col = 0
             self.cur_row += 1
 
-        if self.cur_row < self.n_rows:
-            self.cur_row += 1
-        else:
-            self.cur_col = 0
-            self.cur_row = 0
 
-    def next_sprite_rect(self):
-        coord = self.get_rect(self.cur_row, self.cur_col)
-        self.__to_next_sprite()
-        return coord
+    def cur_sprite_rect(self):
+        return self.get_rect(self.cur_row, self.cur_col)

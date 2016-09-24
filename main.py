@@ -54,7 +54,7 @@ class Application:
 
     def run_explode(self):
         # rect = Rect(Point(0.3, 0.3), 0.2, 0.2)
-        # sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 20, 20)
+        # sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 0.125, 0.125)
         # sprite_anim = SpriteRectAnimation(sprite, rect, 1, 40)
         # self.figures.append(sprite_anim)
         # # sprite_anim.start()
@@ -62,8 +62,9 @@ class Application:
 
     def create_shapes(self):
         rect = Rect(Point(0.3, 0.3), 0.2, 0.2)
-        sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 20, 20)
-        sprite_anim = SpriteRectAnimation(sprite, rect, 1, 40)
+        sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 0.125, 0.125)
+        sprite_anim = SpriteRectAnimation(sprite, rect, 63, 41)
+        sprite_anim.start()
         self.figures.append(sprite_anim)
         # self.figures.append(Background('images/globes/space1.jpg'))
         #
