@@ -59,7 +59,7 @@ class ShiningGlobePainter(Painter):
         self.point_light()
 
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, (1.0, 1.0, 1.0, 1.0))
-        dt = Animation.sampling(self.n)
+        dt = Animation.rad_angle_part(self.n)
         glEnable(GL_TEXTURE_2D)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
         self.globe.texture.bind_texture()

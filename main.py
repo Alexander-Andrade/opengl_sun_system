@@ -2,6 +2,7 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 
 from Shapes import *
+from SequenceTimer import SequenceTimer
 
 
 class Window:
@@ -42,10 +43,15 @@ class Window:
     def mainLoop(self):
         glutMainLoop()
 
+
+def fu(_=None):
+    print("Hello")
+
 class Application:
 
     def __init__(self):
         self.figures = []
+        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0)])
 
     def create_shapes(self):
         self.figures.append(Background('images/space1.jpg'))
@@ -72,6 +78,9 @@ class Application:
         #self.figures.append(mars_orbit)
         self.figures.append(venus_orbit)
         self.figures.append(calisto_orbit)
+
+    def start_sequencetimer(self):
+        self.sequenceTimer.start()
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -102,11 +111,10 @@ class Application:
         glFlush()
         glutSwapBuffers()
 
-
 if __name__ == "__main__":
     glutInit(sys.argv)
     app = Application()
     window = Window(app)
-    app.create_shapes()
+    app.start_sequencetimer()
     window.mainLoop()
 

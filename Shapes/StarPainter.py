@@ -10,11 +10,7 @@ class StarPainter(GlobePainter):
         GlobePainter.__init__(self, globe, n)
 
     def draw(self):
-        #glEnable(GL_LIGHT0)
-        #glLightfv(GL_LIGHT0, GL_POSITION, [0.0, 0.0, 0.0, 1.0])
-        #glNormal3f(0.0, 0.0, -1.0)
-
-        dt = Animation.sampling(self.n)
+        dt = Animation.rad_angle_part(self.n)
         glEnable(GL_TEXTURE_2D)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
         self.globe.texture.bind_texture()
@@ -37,6 +33,5 @@ class StarPainter(GlobePainter):
 
         glEnd()
         glDisable(GL_TEXTURE_2D)
-        #glDisable(GL_LIGHT0)
 
 
