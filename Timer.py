@@ -24,6 +24,12 @@ class Timer:
             glutTimerFunc(self.ms_duration, self.timer, None)
             self.is_started = True 
 
+    def change_duration(self, ms_duration):
+        self.stop()
+        self.ms_duration = ms_duration
+        self.start(self.on_timer)
+
+
     def stop(self):
         self.is_started = False
 
