@@ -9,7 +9,7 @@ class Texture:
 
     def __init__(self, image_name, type=GL_TEXTURE_2D):
         self.type = type
-        self.image = Image.open(image_name)
+        self.image = Image.open(image_name).transpose(Image.FLIP_LEFT_RIGHT).rotate(180)
         self.img_data = np.array(list(self.image.getdata()), np.uint8)
         glEnable(GL_TEXTURE_2D)
         self.texture = glGenTextures(1)

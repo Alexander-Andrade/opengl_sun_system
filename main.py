@@ -3,7 +3,9 @@ from OpenGL.GLUT import *
 
 from Shapes import *
 from SequenceTimer import SequenceTimer
-
+from Timer import Timer
+from Sprite import Sprite
+import random
 
 class Window:
 
@@ -44,40 +46,51 @@ class Window:
         glutMainLoop()
 
 
-def fu(_=None):
-    print("Hello")
-
 class Application:
 
     def __init__(self):
         self.figures = []
         self.sequenceTimer = SequenceTimer([(self.create_shapes, 0)])
 
+    def run_explode(self):
+        # rect = Rect(Point(0.3, 0.3), 0.2, 0.2)
+        # sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 20, 20)
+        # sprite_anim = SpriteRectAnimation(sprite, rect, 1, 40)
+        # self.figures.append(sprite_anim)
+        # # sprite_anim.start()
+        pass
+
     def create_shapes(self):
-        self.figures.append(Background('images/space1.jpg'))
+        rect = Rect(Point(0.3, 0.3), 0.2, 0.2)
+        sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 20, 20)
+        sprite_anim = SpriteRectAnimation(sprite, rect, 1, 40)
+        self.figures.append(sprite_anim)
+        # self.figures.append(Background('images/globes/space1.jpg'))
+        #
+        # sun = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
+        # sun.set_painter(ShiningGlobePainter(sun))
 
-        sun = Globe(Point(0.0, 0.0), 0.12, 'images/sun.jpg')
-        sun.set_painter(ShiningGlobePainter(sun))
-        glize = Globe(Point(), 0.06, 'images/glize.jpg')
-        mars = Globe(Point(), 0.034, 'images/mars.jpg')
-        venus = Globe(Point(), 0.063, 'images/venus.jpg')
-        calisto = Globe(Point(), 0.087, 'images/calisto.jpg')
-
-        glize_orbit = Orbit(sun, glize, 50, 0.45, 0.43, 30)
-        mars_orbit = Orbit(sun, mars, 47, 0.9, 0.6, 60)
-        venus_orbit = Orbit(sun, venus, 38, 0.7, 0.6, 78)
-        calisto_orbit = Orbit(sun, calisto, 40, 0.56, 0.57, 32)
-
-        glize_orbit.start_moving_shape()
-        mars_orbit.start_moving_shape()
-        venus_orbit.start_moving_shape()
-        calisto_orbit.start_moving_shape()
-
-        self.figures.append(sun)
-        self.figures.append(glize_orbit)
-        self.figures.append(mars_orbit)
-        self.figures.append(venus_orbit)
-        self.figures.append(calisto_orbit)
+        # glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
+        # mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
+        # venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
+        # calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
+        #
+        # glize_orbit = Orbit(sun, glize, 50, 0.45, 0.43, 30)
+        # mars_orbit = Orbit(sun, mars, 47, 0.9, 0.6, 60)
+        # venus_orbit = Orbit(sun, venus, 38, 0.7, 0.6, 78)
+        # calisto_orbit = Orbit(sun, calisto, 40, 0.56, 0.57, 32)
+        #
+        # glize_orbit.start_moving_shape()
+        # mars_orbit.start_moving_shape()
+        # venus_orbit.start_moving_shape()
+        # calisto_orbit.start_moving_shape()
+        #
+        # self.figures.append(sun)
+        # self.figures.append(glize_orbit)
+        # self.figures.append(mars_orbit)
+        # self.figures.append(venus_orbit)
+        # self.figures.append(calisto_orbit)
+        pass
 
     def start_sequencetimer(self):
         self.sequenceTimer.start()
@@ -110,6 +123,10 @@ class Application:
         glDisable(GL_LIGHT2)
         glFlush()
         glutSwapBuffers()
+
+
+from PIL import Image
+import numpy as np
 
 if __name__ == "__main__":
     glutInit(sys.argv)

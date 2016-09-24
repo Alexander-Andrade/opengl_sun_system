@@ -9,7 +9,7 @@ class TriangleFragmentPainter(Painter):
 
     def draw(self):
         glEnable(GL_TEXTURE_2D)
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
         self.frag.texture.bind_texture()
         glBegin(GL_TRIANGLE_FAN)
         glTexCoord2f(self.frag.p1.x, self.frag.p1.y)
