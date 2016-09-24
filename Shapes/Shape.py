@@ -15,5 +15,9 @@ class Shape(metaclass=ABCMeta):
     def set_gravitycenter(self, grav_center):
         pass
 
+    @abstractmethod
+    def gravity_center(self):
+        pass
+
 
 

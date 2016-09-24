@@ -10,22 +10,23 @@ from Shapes.EllipsePainter import EllipsePainter
 
 class Ellipse(Shape):
     
-    def __init__(self, center=Point(), a=0.0, b=0.0, angle=0.0, rotate_point=None, has_painter=True):
+    def __init__(self, center=Point(), a=0.0, b=0.0, angle=0.0, point_of_rotation=None, has_painter=True):
         self.center = center
+        self.point_of_rotation = point_of_rotation
         self.a = a
         self.b = b
         self.angle = math.radians(angle)
-        self.rotate_point = rotate_point
         if has_painter:
             self.painter = EllipsePainter(self)
 
     def parametric(self, t):
         x = self.center.x + self.a*math.cos(t)
         y = self.center.y + self.b*math.sin(t)
-        return Animation.rotate_around(self.rotate_point, Point(x, y), self.angle)
+        if self.point_of_rotation:
+            return Animation.rotate_around(self.point_of_rotation, Point(x, y), self.angle)
 
     def get_samples(self, n):
-        dt = Animation.sampling(n)
+        dt = Animation.rad_angle_part(n)
         samples = np.zeros((n, 3))
         for i in range(n):
             samples[i] = self.parametric(i * dt).as_tuple()
@@ -33,6 +34,9 @@ class Ellipse(Shape):
 
     def set_gravitycenter(self, grav_center):
         self.center = grav_center
+
+    def gravity_center(self):
+        return self.center
 
     @staticmethod
     def focal_dist(a, b):

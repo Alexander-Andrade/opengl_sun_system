@@ -12,7 +12,7 @@ class GlobePainter(Painter):
         self.n = n
 
     def draw(self):
-        dt = Animation.sampling(self.n)
+        dt = Animation.rad_angle_part(self.n)
         glEnable(GL_TEXTURE_2D)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE)
         self.globe.texture.bind_texture()

@@ -12,3 +12,6 @@ class Background(Shape):
 
     def set_gravitycenter(self, grav_center):
         raise NotImplementedError()
+
+    def gravity_center(self):
+        raise NotImplementedError()

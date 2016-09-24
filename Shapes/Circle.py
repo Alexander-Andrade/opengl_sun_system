@@ -13,5 +13,6 @@ class Circle(Shape):
     def set_gravitycenter(self, grav_center):
         self.center = grav_center
 
-
+    def gravity_center(self):
+        raise self.center
 

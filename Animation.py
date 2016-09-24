@@ -6,5 +6,5 @@ def rotate_around(center, point, angle):
     y = (point.y - center.y) * math.cos(angle) + (point.x - center.x) * math.sin(angle) + center.y
     return Point(x, y)
 
-def sampling(n):
+def rad_angle_part(n):
     return 2.0 * math.pi / (n - 1)

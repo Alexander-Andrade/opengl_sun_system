@@ -33,6 +33,9 @@ class Point(Shape):
 
     def set_gravitycenter(self, point):
         self.x, self.y, self.z = point.as_typle()
-    
+
+    def gravity_center(self):
+        return self
+
     def __repr__(self):
         return "Point(x:{}, y:{}, z:{})".format(self.x, self.y, self.z)
