@@ -1,3 +1,6 @@
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
 from Texture import Texture
 from Timer import Timer
 from Shapes.Point import Point
@@ -5,16 +8,16 @@ from Shapes.Rect import Rect
 from Sprite import Sprite
 from Shapes.Shape import Shape
 from OpenGL.GLUT import*
-from Shapes.SpriteRectAnimationPainter import SpriteRectAnimationPainter
+from Shapes.SpriteRectAnimationPainter import SpriteExplosionPainter
 
 
 class SpriteRectAnimation(Shape):
 
-    def __init__(self, sprite, rect, n_frames, ms_duration):
+    def __init__(self, sprite, rect, n_frames, ms_duration, light=GL_LIGHT0):
         self.sprite = sprite
         self.rect = rect
         self.timer = Timer(ms_duration, False, n_frames)
-        self.painter = SpriteRectAnimationPainter(self)
+        self.painter = SpriteExplosionPainter(self, light)
 
     def set_gravitycenter(self, grav_center):
         self.rect.set_gravitycenter(grav_center)

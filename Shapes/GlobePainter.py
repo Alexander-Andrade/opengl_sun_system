@@ -55,7 +55,6 @@ class ShiningGlobePainter(Painter):
         glLightf(self.light, GL_QUADRATIC_ATTENUATION, 0.2)
 
     def draw(self):
-        glEnable(self.light)
         self.point_light()
 
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, (1.0, 1.0, 1.0, 1.0))

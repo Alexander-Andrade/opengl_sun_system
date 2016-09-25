@@ -23,7 +23,10 @@ class Sprite:
             self.cur_col += 1
         else:
             self.cur_col = 0
-            self.cur_row += 1
+            if self.cur_row < self.n_rows-1:
+                self.cur_row += 1
+            else:
+                self.cur_row = 0
 
 
     def cur_sprite_rect(self):

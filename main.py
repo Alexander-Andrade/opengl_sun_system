@@ -49,49 +49,44 @@ class Window:
 class Application:
 
     def __init__(self):
-        self.figures = []
+        self.background = None
+        self.star = None
+        self.orbits = []
         self.sequenceTimer = SequenceTimer([(self.create_shapes, 0)])
 
-    def run_explode(self):
-        # rect = Rect(Point(0.3, 0.3), 0.2, 0.2)
-        # sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 0.125, 0.125)
-        # sprite_anim = SpriteRectAnimation(sprite, rect, 1, 40)
-        # self.figures.append(sprite_anim)
-        # # sprite_anim.start()
-        pass
+    def explode_random_planet(self):
+        orbit = random.choice(self.orbits)
+        self.orbits.remove(orbit)
+        sprite = Sprite('images/sprites/explode_9.jpg', 5, 4, 0.25, 0.2)
+        sprite_anim = SpriteRectAnimation(sprite, Rect.from_circle(orbit), 19, 1000, GL_LIGHT1)
+        sprite_anim.start()
+        self.orbits.append(sprite_anim)
 
     def create_shapes(self):
-        rect = Rect(Point(0.3, 0.3), 0.2, 0.2)
-        sprite = Sprite('images/sprites/explode_7.jpg', 8, 8, 0.125, 0.125)
-        sprite_anim = SpriteRectAnimation(sprite, rect, 63, 41)
-        sprite_anim.start()
-        self.figures.append(sprite_anim)
-        # self.figures.append(Background('images/globes/space1.jpg'))
-        #
-        # sun = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
-        # sun.set_painter(ShiningGlobePainter(sun))
+        self.background = Background('images/globes/space1.jpg')
 
-        # glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
-        # mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
-        # venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
-        # calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
-        #
-        # glize_orbit = Orbit(sun, glize, 50, 0.45, 0.43, 30)
-        # mars_orbit = Orbit(sun, mars, 47, 0.9, 0.6, 60)
-        # venus_orbit = Orbit(sun, venus, 38, 0.7, 0.6, 78)
-        # calisto_orbit = Orbit(sun, calisto, 40, 0.56, 0.57, 32)
-        #
-        # glize_orbit.start_moving_shape()
-        # mars_orbit.start_moving_shape()
-        # venus_orbit.start_moving_shape()
-        # calisto_orbit.start_moving_shape()
-        #
-        # self.figures.append(sun)
-        # self.figures.append(glize_orbit)
-        # self.figures.append(mars_orbit)
-        # self.figures.append(venus_orbit)
-        # self.figures.append(calisto_orbit)
-        pass
+        self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
+        self.star.set_painter(ShiningGlobePainter(self.star))
+
+        glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
+        mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
+        venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
+        calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
+
+        glize_orbit = Orbit(self.star, glize, 50, 0.45, 0.43, 30)
+        mars_orbit = Orbit(self.star, mars, 47, 0.9, 0.6, 60)
+        venus_orbit = Orbit(self.star, venus, 38, 0.7, 0.6, 78)
+        calisto_orbit = Orbit(self.star, calisto, 40, 0.56, 0.57, 32)
+
+        glize_orbit.start_moving_shape()
+        mars_orbit.start_moving_shape()
+        venus_orbit.start_moving_shape()
+        calisto_orbit.start_moving_shape()
+
+        self.orbits.append(glize_orbit)
+        self.orbits.append(mars_orbit)
+        self.orbits.append(venus_orbit)
+        self.orbits.append(calisto_orbit)
 
     def start_sequencetimer(self):
         self.sequenceTimer.start()
@@ -101,33 +96,15 @@ class Application:
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, (1.0, 1.0, 1.0, 1.0))
-        glEnable(GL_LIGHT2)
-        glLightfv(GL_LIGHT2, GL_DIFFUSE, (0.4, 0.7, 0.2))
-        glLightfv(GL_LIGHT2, GL_POSITION, (0.0, 0.0, -0.01, 1.0))
-        glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0)
-        glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.8)
-        glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 5)
+        self.background.draw()
+        self.star.draw()
 
-        glColor3f(0.8, 0.8, 0.0)
-        glBegin(GL_POLYGON)
-        glNormal3f(0.0, 0.0, -1.0)
-        glVertex3f(-1, -1, 0.0)
-        glVertex3f(1, -1, 0.0)
-        glVertex3f(1, 1, 0.0)
-        glVertex3f(-1, 1, 0.0)
-        glEnd()
-
-        for figure in self.figures:
+        for figure in self.orbits:
             figure.draw()
 
-        glDisable(GL_LIGHT2)
         glFlush()
         glutSwapBuffers()
 
-
-from PIL import Image
-import numpy as np
 
 if __name__ == "__main__":
     glutInit(sys.argv)
@@ -135,4 +112,3 @@ if __name__ == "__main__":
     window = Window(app)
     app.start_sequencetimer()
     window.mainLoop()
-

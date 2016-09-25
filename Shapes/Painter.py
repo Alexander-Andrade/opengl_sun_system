@@ -11,4 +11,3 @@ class Painter(metaclass=ABCMeta):
         pass
 
 
-

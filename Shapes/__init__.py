@@ -31,4 +31,4 @@ from Shapes.Rect import Rect
 from Shapes.Trajectory import Trajectory
 
 from Shapes.SpriteRectAnimation import SpriteRectAnimation
-from Shapes.SpriteRectAnimationPainter import SpriteRectAnimationPainter
+from Shapes.SpriteRectAnimationPainter import SpriteExplosionPainter
