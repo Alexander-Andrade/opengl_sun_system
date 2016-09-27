@@ -1,4 +1,5 @@
 from OpenGL.GL import *
+from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 from Shapes import *
@@ -6,6 +7,7 @@ from SequenceTimer import SequenceTimer
 from Timer import Timer
 from Sprite import Sprite
 import random
+
 
 class Window:
 
@@ -65,6 +67,11 @@ class Application:
     def create_shapes(self):
         self.background = Background('images/globes/space1.jpg')
 
+        sprite = Sprite('images/sprites/explode_9.jpg', 5, 4, 0.25, 0.2)
+        sprite_anim = SpriteRectAnimation(sprite, Rect(Point(0.5, 0.5), 0.3, 0.3), 19, 1000, GL_LIGHT1)
+        sprite_anim.start()
+        self.orbits.append(sprite_anim)
+
         self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
         self.star.set_painter(ShiningGlobePainter(self.star))
 
@@ -96,7 +103,7 @@ class Application:
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-        self.background.draw()
+        #self.background.draw()
         self.star.draw()
 
         for figure in self.orbits:
@@ -105,10 +112,30 @@ class Application:
         glFlush()
         glutSwapBuffers()
 
+import numpy as np
+from PIL import Image
+
+def fu(image_name):
+    image = Image.open(image_name).transpose(Image.FLIP_LEFT_RIGHT).rotate(180)
+    img_data = np.array(image.convert("RGBA"), np.uint8)
+    glEnable(GL_TEXTURE_2D)
+    texture = glGenTextures(1)
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+    glBindTexture(GL_TEXTURE_2D, texture)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+    # glTexImage2D(type, 0, GL_RGB, self.width(), self.height(), 0, GL_RGB, GL_UNSIGNED_BYTE, self.img_data)
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, image.size[0], image.size[1], GL_RGBA, GL_UNSIGNED_BYTE, img_data)
+
 
 if __name__ == "__main__":
     glutInit(sys.argv)
     app = Application()
     window = Window(app)
-    app.start_sequencetimer()
+    fu('images/sprites/explode_7.jpg')
+    #app.start_sequencetimer()
     window.mainLoop()
+
+
