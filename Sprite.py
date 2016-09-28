@@ -5,12 +5,12 @@ from Shapes.Rect import Rect
 
 class Sprite:
 
-    def __init__(self, image_name, n_rows, n_cols, width, height):
+    def __init__(self, image_name, n_rows, n_cols):
         self.texture = Texture(image_name)
         self.n_rows = n_rows
         self.n_cols = n_cols
-        self.width = width
-        self.height = height
+        self.width = 1/self.n_cols
+        self.height = 1/self.n_rows
         self.cur_row = 0
         self.cur_col = 0
 

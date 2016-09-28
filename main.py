@@ -59,7 +59,7 @@ class Application:
     def explode_random_planet(self):
         orbit = random.choice(self.orbits)
         self.orbits.remove(orbit)
-        sprite = Sprite('images/sprites/explode_9.jpg', 5, 4, 0.25, 0.2)
+        sprite = Sprite('images/sprites/explode_9.jpg', 5, 4)
         sprite_anim = SpriteRectAnimation(sprite, Rect.from_circle(orbit), 19, 1000, GL_LIGHT1)
         sprite_anim.start()
         self.orbits.append(sprite_anim)
@@ -67,33 +67,33 @@ class Application:
     def create_shapes(self):
         self.background = Background('images/globes/space1.jpg')
 
-        sprite = Sprite('images/sprites/explode_9.jpg', 5, 4, 0.25, 0.2)
-        sprite_anim = SpriteRectAnimation(sprite, Rect(Point(0.5, 0.5), 0.3, 0.3), 19, 1000, GL_LIGHT1)
+        sprite = Sprite('images/sprites/explode_11.png', 9, 9)
+        sprite_anim = SpriteRectAnimation(sprite, Rect(Point(0.5, 0.5), 0.3, 0.3), 19, 41, GL_LIGHT1)
         sprite_anim.start()
         self.orbits.append(sprite_anim)
 
-        self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
-        self.star.set_painter(ShiningGlobePainter(self.star))
-
-        glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
-        mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
-        venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
-        calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
-
-        glize_orbit = Orbit(self.star, glize, 50, 0.45, 0.43, 30)
-        mars_orbit = Orbit(self.star, mars, 47, 0.9, 0.6, 60)
-        venus_orbit = Orbit(self.star, venus, 38, 0.7, 0.6, 78)
-        calisto_orbit = Orbit(self.star, calisto, 40, 0.56, 0.57, 32)
-
-        glize_orbit.start_moving_shape()
-        mars_orbit.start_moving_shape()
-        venus_orbit.start_moving_shape()
-        calisto_orbit.start_moving_shape()
-
-        self.orbits.append(glize_orbit)
-        self.orbits.append(mars_orbit)
-        self.orbits.append(venus_orbit)
-        self.orbits.append(calisto_orbit)
+        # self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
+        # self.star.set_painter(ShiningGlobePainter(self.star))
+        #
+        # glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
+        # mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
+        # venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
+        # calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
+        #
+        # glize_orbit = Orbit(self.star, glize, 50, 0.45, 0.43, 30)
+        # mars_orbit = Orbit(self.star, mars, 47, 0.9, 0.6, 60)
+        # venus_orbit = Orbit(self.star, venus, 38, 0.7, 0.6, 78)
+        # calisto_orbit = Orbit(self.star, calisto, 40, 0.56, 0.57, 32)
+        #
+        # glize_orbit.start_moving_shape()
+        # mars_orbit.start_moving_shape()
+        # venus_orbit.start_moving_shape()
+        # calisto_orbit.start_moving_shape()
+        #
+        # self.orbits.append(glize_orbit)
+        # self.orbits.append(mars_orbit)
+        # self.orbits.append(venus_orbit)
+        # self.orbits.append(calisto_orbit)
 
     def start_sequencetimer(self):
         self.sequenceTimer.start()
@@ -103,8 +103,8 @@ class Application:
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-        #self.background.draw()
-        self.star.draw()
+        self.background.draw()
+        #self.star.draw()
 
         for figure in self.orbits:
             figure.draw()
@@ -112,30 +112,12 @@ class Application:
         glFlush()
         glutSwapBuffers()
 
-import numpy as np
-from PIL import Image
-
-def fu(image_name):
-    image = Image.open(image_name).transpose(Image.FLIP_LEFT_RIGHT).rotate(180)
-    img_data = np.array(image.convert("RGBA"), np.uint8)
-    glEnable(GL_TEXTURE_2D)
-    texture = glGenTextures(1)
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
-    glBindTexture(GL_TEXTURE_2D, texture)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-    # glTexImage2D(type, 0, GL_RGB, self.width(), self.height(), 0, GL_RGB, GL_UNSIGNED_BYTE, self.img_data)
-    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, image.size[0], image.size[1], GL_RGBA, GL_UNSIGNED_BYTE, img_data)
-
 
 if __name__ == "__main__":
     glutInit(sys.argv)
     app = Application()
     window = Window(app)
-    fu('images/sprites/explode_7.jpg')
-    #app.start_sequencetimer()
+    app.start_sequencetimer()
     window.mainLoop()
 
 
