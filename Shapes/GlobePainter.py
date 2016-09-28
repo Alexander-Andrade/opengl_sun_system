@@ -64,11 +64,14 @@ class GlobeSpriteAnimationPainter(Painter):
         rect_points = (Rect.from_circle(self.globe)).points()
         sprite_points = self.animation.cur_sprite_rect().points()
         self.point_light(self.globe.center)
+        glPushMatrix()
+        glScale(3.0, 3.0, 3.0)
         glBegin(GL_QUADS)
         for i in range(4):
             glTexCoord2f(sprite_points[i].x, sprite_points[i].y)
             glVertex2f(rect_points[i].x, rect_points[i].y)
         glEnd()
+        glPopMatrix()
         glDisable(self.light)
         glDisable(GL_TEXTURE_2D)
 

@@ -54,19 +54,22 @@ class Application:
         self.background = None
         self.star = None
         self.orbits = []
-        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0), (self.explode_random_planet, 3000)])
+        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0), (self.explode_random_planet, 5000)])
         self.exploded_planet = None
+        self.explode_planet_anim = None
 
     def explode_random_planet(self):
         orbit = random.choice(self.orbits)
-        after_func = lambda: self.exploded_planet.set_painter(DummyGlobePainter(self.exploded_planet))
-        explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19, after_func)
-        explode_planet_anim.start_animation()
+        self.explode_planet_anim.start_animation()
         self.exploded_planet = orbit.shape
-        self.exploded_planet.set_painter(GlobeSpriteAnimationPainter(self.exploded_planet, explode_planet_anim, GL_LIGHT1))
+        self.exploded_planet.set_painter(GlobeSpriteAnimationPainter(self.exploded_planet, self.explode_planet_anim, GL_LIGHT1))
 
     def create_shapes(self):
         self.background = Background('images/globes/space1.jpg')
+
+        #get texture before animation starts
+        after_func = lambda: self.exploded_planet.set_painter(DummyGlobePainter(self.exploded_planet))
+        self.explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19, after_func)
 
         self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
         self.star.set_painter(ShiningGlobePainter(self.star))
