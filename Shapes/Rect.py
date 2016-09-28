@@ -25,5 +25,15 @@ class Rect(Shape):
         side = circle.r*2
         return Rect(p, side, side)
 
+    def scale_on_center(self, scale):
+        center = self.gravity_center()
+        old_width= self.width
+        old_height=self.height
+        self.width *= scale
+        self.height *= scale
+        dx = (self.width - old_width)/2
+        dy = (self.height - old_height)/2
+        self.point = Point(center.x - dx, center.y - dy)
+
     def __repr__(self):
         return "Rect(p:{}, width:{}, height:{})".format(self.point, self.width, self.height)

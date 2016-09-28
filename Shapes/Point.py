@@ -24,6 +24,12 @@ class Point(Shape):
     def __truediv__(self, point):
         return Point(self.x / point.x, self.y / point.y, self.z / point.z)
 
+    def __eq__(self, point):
+        return True if self.x == point.x and self.y == point.y else False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def as_tuple(self):
         return self.x, self.y, self.z
 

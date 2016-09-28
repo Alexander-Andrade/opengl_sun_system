@@ -54,7 +54,7 @@ class Application:
         self.background = None
         self.star = None
         self.orbits = []
-        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0), (self.explode_random_planet, 5000)])
+        self.sequenceTimer = SequenceTimer([(self.first_timered_steps, 0), (self.explode_random_planet, 5000)])
         self.exploded_planet = None
         self.explode_planet_anim = None
 
@@ -64,38 +64,40 @@ class Application:
         self.exploded_planet = orbit.shape
         self.exploded_planet.set_painter(GlobeSpriteAnimationPainter(self.exploded_planet, self.explode_planet_anim, GL_LIGHT1))
 
+    def first_timered_steps(self):
+        self.create_shapes()
+        self.load_explosion_animation()
+
+    def load_explosion_animation(self):
+        # get texture before animation starts
+        after_func = lambda: self.exploded_planet.set_painter(DummyGlobePainter(self.exploded_planet))
+        self.explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 200, 19, after_func)
+
     def create_shapes(self):
         self.background = Background('images/globes/space1.jpg')
-
-        #get texture before animation starts
-        after_func = lambda: self.exploded_planet.set_painter(DummyGlobePainter(self.exploded_planet))
-        self.explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19, after_func)
 
         self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
         self.star.set_painter(ShiningGlobePainter(self.star))
 
         glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
-        # explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19)
-        # explode_planet_anim.start_animation()
-        # glize.set_painter(GlobeSpriteAnimationPainter(glize, explode_planet_anim, GL_LIGHT1))
-        # mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
-        # venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
-        # calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
-        #
+        mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
+        venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
+        calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
+
         glize_orbit = Orbit(self.star, glize, 50, 0.45, 0.43, 30)
-        # mars_orbit = Orbit(self.star, mars, 47, 0.9, 0.6, 60)
-        # venus_orbit = Orbit(self.star, venus, 38, 0.7, 0.6, 78)
-        # calisto_orbit = Orbit(self.star, calisto, 40, 0.56, 0.57, 32)
-        #
+        mars_orbit = Orbit(self.star, mars, 47, 0.9, 0.6, 60)
+        venus_orbit = Orbit(self.star, venus, 38, 0.7, 0.6, 78)
+        calisto_orbit = Orbit(self.star, calisto, 40, 0.56, 0.57, 32)
+
         glize_orbit.start_moving_shape()
-        # mars_orbit.start_moving_shape()
-        # venus_orbit.start_moving_shape()
-        # calisto_orbit.start_moving_shape()
-        #
+        mars_orbit.start_moving_shape()
+        venus_orbit.start_moving_shape()
+        calisto_orbit.start_moving_shape()
+
         self.orbits.append(glize_orbit)
-        # self.orbits.append(mars_orbit)
-        # self.orbits.append(venus_orbit)
-        # self.orbits.append(calisto_orbit)
+        self.orbits.append(mars_orbit)
+        self.orbits.append(venus_orbit)
+        self.orbits.append(calisto_orbit)
 
     def start_sequencetimer(self):
         self.sequenceTimer.start()
