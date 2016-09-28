@@ -29,7 +29,8 @@ class Window:
         glutCreateWindow(self.title)
 
     def __gl_init(self):
-        # glClearColor(0.3, 0.3, 0.3, 0.0)
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         pass
 
     def __init_lightning(self):
@@ -53,7 +54,7 @@ class Application:
         self.background = None
         self.star = None
         self.orbits = []
-        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0), (self.explode_random_planet, 5000)])
+        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0), (self.explode_random_planet, 3000)])
         self.exploded_planet = None
 
     def explode_random_planet(self):
