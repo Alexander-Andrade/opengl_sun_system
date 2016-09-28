@@ -12,6 +12,7 @@ from Shapes.EllipsePainter import EllipsePainter
 from Shapes.Globe import Globe
 from Shapes.GlobePainter import GlobePainter
 from Shapes.GlobePainter import ShiningGlobePainter
+from Shapes.GlobePainter import GlobeSpriteAnimationPainter
 
 from Shapes.Star import Star
 from Shapes.StarPainter import StarPainter
@@ -30,5 +31,3 @@ from Shapes.Rect import Rect
 
 from Shapes.Trajectory import Trajectory
 
-from Shapes.SpriteRectAnimation import SpriteRectAnimation
-from Shapes.SpriteRectAnimationPainter import SpriteExplosionPainter

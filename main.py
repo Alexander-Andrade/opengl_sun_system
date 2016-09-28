@@ -4,8 +4,7 @@ from OpenGL.GLUT import *
 
 from Shapes import *
 from SequenceTimer import SequenceTimer
-from Timer import Timer
-from Sprite import Sprite
+from Animation import SpriteAnimation
 import random
 
 
@@ -60,37 +59,32 @@ class Application:
         orbit = random.choice(self.orbits)
         self.orbits.remove(orbit)
         sprite = Sprite('images/sprites/explode_9.jpg', 5, 4)
-        sprite_anim = SpriteRectAnimation(sprite, Rect.from_circle(orbit), 19, 1000, GL_LIGHT1)
-        sprite_anim.start()
-        self.orbits.append(sprite_anim)
 
     def create_shapes(self):
         self.background = Background('images/globes/space1.jpg')
 
-        sprite = Sprite('images/sprites/explode_11.png', 9, 9)
-        sprite_anim = SpriteRectAnimation(sprite, Rect(Point(0.5, 0.5), 0.3, 0.3), 19, 41, GL_LIGHT1)
-        sprite_anim.start()
-        self.orbits.append(sprite_anim)
+        self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
+        self.star.set_painter(ShiningGlobePainter(self.star))
 
-        # self.star = Globe(Point(0.0, 0.0), 0.12, 'images/globes/sun.jpg')
-        # self.star.set_painter(ShiningGlobePainter(self.star))
-        #
-        # glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
+        glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
+        explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19)
+        explode_planet_anim.start_animation()
+        glize.set_painter(GlobeSpriteAnimationPainter(glize, explode_planet_anim, GL_LIGHT1))
         # mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
         # venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
         # calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
         #
-        # glize_orbit = Orbit(self.star, glize, 50, 0.45, 0.43, 30)
+        glize_orbit = Orbit(self.star, glize, 50, 0.45, 0.43, 30)
         # mars_orbit = Orbit(self.star, mars, 47, 0.9, 0.6, 60)
         # venus_orbit = Orbit(self.star, venus, 38, 0.7, 0.6, 78)
         # calisto_orbit = Orbit(self.star, calisto, 40, 0.56, 0.57, 32)
         #
-        # glize_orbit.start_moving_shape()
+        glize_orbit.start_moving_shape()
         # mars_orbit.start_moving_shape()
         # venus_orbit.start_moving_shape()
         # calisto_orbit.start_moving_shape()
         #
-        # self.orbits.append(glize_orbit)
+        self.orbits.append(glize_orbit)
         # self.orbits.append(mars_orbit)
         # self.orbits.append(venus_orbit)
         # self.orbits.append(calisto_orbit)
@@ -104,7 +98,7 @@ class Application:
         glLoadIdentity()
 
         self.background.draw()
-        #self.star.draw()
+        self.star.draw()
 
         for figure in self.orbits:
             figure.draw()
