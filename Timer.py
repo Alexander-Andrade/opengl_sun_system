@@ -11,6 +11,7 @@ class Timer:
         self.n_times = n_times
         self.ms_duration = ms_duration
         self.on_timer = None
+        self.after_timer = None
 
     def timer(self, _=None):
         self.on_timer()
@@ -21,9 +22,12 @@ class Timer:
             glutTimerFunc(self.ms_duration, self.timer, 0)
         else:
             self.is_started = False
+            if self.after_timer:
+                self.after_timer()
 
-    def start(self, on_timer):
+    def start(self, on_timer, after=None):
         self.on_timer = on_timer
+        self.after_timer = after
         if not self.is_started:
             glutTimerFunc(self.ms_duration, self.timer, None)
             self.is_started = True 

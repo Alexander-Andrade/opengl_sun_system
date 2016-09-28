@@ -17,12 +17,13 @@ def rad_angle_part(n):
 
 class SpriteAnimation(Sprite):
 
-    def __init__(self, image_name, n_rows, n_cols, ms, n_frames):
+    def __init__(self, image_name, n_rows, n_cols, ms, n_frames, after_callback=None):
         Sprite.__init__(self, image_name, n_rows, n_cols)
         self.timer = Timer(ms, False, n_frames)
+        self.after_callback = after_callback
 
     def start_animation(self):
-        self.timer.start(self.animate)
+        self.timer.start(self.animate, self.after_callback)
 
     def animate(self):
         self.to_next_sprite()

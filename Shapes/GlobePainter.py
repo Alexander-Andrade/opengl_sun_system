@@ -118,3 +118,11 @@ class ShiningGlobePainter(Painter):
         glDisable(GL_TEXTURE_2D)
 
 
+class DummyGlobePainter(Painter):
+
+    def __init__(self, globe):
+        self.globe = globe
+
+    def draw(self):
+        pass
+

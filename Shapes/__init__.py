@@ -13,6 +13,7 @@ from Shapes.Globe import Globe
 from Shapes.GlobePainter import GlobePainter
 from Shapes.GlobePainter import ShiningGlobePainter
 from Shapes.GlobePainter import GlobeSpriteAnimationPainter
+from Shapes.GlobePainter import DummyGlobePainter
 
 from Shapes.Star import Star
 from Shapes.StarPainter import StarPainter

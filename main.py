@@ -53,12 +53,16 @@ class Application:
         self.background = None
         self.star = None
         self.orbits = []
-        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0)])
+        self.sequenceTimer = SequenceTimer([(self.create_shapes, 0), (self.explode_random_planet, 5000)])
+        self.exploded_planet = None
 
     def explode_random_planet(self):
         orbit = random.choice(self.orbits)
-        self.orbits.remove(orbit)
-        sprite = Sprite('images/sprites/explode_9.jpg', 5, 4)
+        after_func = lambda: self.exploded_planet.set_painter(DummyGlobePainter(self.exploded_planet))
+        explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19, after_func)
+        explode_planet_anim.start_animation()
+        self.exploded_planet = orbit.shape
+        self.exploded_planet.set_painter(GlobeSpriteAnimationPainter(self.exploded_planet, explode_planet_anim, GL_LIGHT1))
 
     def create_shapes(self):
         self.background = Background('images/globes/space1.jpg')
@@ -67,9 +71,9 @@ class Application:
         self.star.set_painter(ShiningGlobePainter(self.star))
 
         glize = Globe(Point(), 0.06, 'images/globes/glize.jpg')
-        explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19)
-        explode_planet_anim.start_animation()
-        glize.set_painter(GlobeSpriteAnimationPainter(glize, explode_planet_anim, GL_LIGHT1))
+        # explode_planet_anim = SpriteAnimation('images/sprites/explode_7.png', 8, 8, 100, 19)
+        # explode_planet_anim.start_animation()
+        # glize.set_painter(GlobeSpriteAnimationPainter(glize, explode_planet_anim, GL_LIGHT1))
         # mars = Globe(Point(), 0.034, 'images/globes/mars.jpg')
         # venus = Globe(Point(), 0.063, 'images/globes/venus.jpg')
         # calisto = Globe(Point(), 0.087, 'images/globes/calisto.jpg')
@@ -113,5 +117,6 @@ if __name__ == "__main__":
     window = Window(app)
     app.start_sequencetimer()
     window.mainLoop()
+
 
 
